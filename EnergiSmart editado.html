@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EnergiSmart</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f0f7f2;
+  --surf:#ffffff;
+  --card:#ffffff;
+  --bord:#d4e8db;
+  --green:#1a9e5c;
+  --green-light:#e8f5ee;
+  --green-mid:#b3dfc4;
+  --green-dark:#0d6b3d;
+  --blue:#1a7fc4;
+  --amber:#d4860a;
+  --red:#d94040;
+  --purple:#7b52c9;
+  --text:#1a2e22;
+  --muted:#5a7a66;
+  --radius:12px;
+  --shadow:0 2px 12px rgba(26,158,92,0.08);
+  --shadow-md:0 4px 24px rgba(26,158,92,0.13);
+}
+body {
+    background-image: url('file:///C:/Users/luism/Downloads/moritz-lange-jIpTrVUVy90-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh; 
+}
+
+/* ── Sidebar ── */
+.side{
+  width:230px;min-width:230px;background:var(--green-dark);
+  display:flex;flex-direction:column;
+  box-shadow:2px 0 16px rgba(13,107,61,0.18);
+}
+
+.logo{padding:24px 20px 18px;border-bottom:1px solid rgba(255,255,255,0.1)}
+.logo-txt{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;display:flex;align-items:center;gap:8px;color:#fff}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:#7effc0;box-shadow:0 0 8px #7effc0}
+.logo-txt em{color:#7effc0;font-style:normal}
+.logo-sub{font-size:10px;color:rgba(255,255,255,0.5);margin-top:4px;letter-spacing:.8px;text-transform:uppercase}
+.nav{padding:16px 10px;flex:1}
+.nav-lbl{font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:1.5px;text-transform:uppercase;padding:0 10px;margin-bottom:8px;margin-top:4px}
+.ni{
+  display:flex;align-items:center;gap:10px;padding:10px 12px;
+  border-radius:9px;cursor:pointer;color:rgba(255,255,255,0.6);
+  font-size:13px;transition:all .15s;margin-bottom:3px;border:1px solid transparent;
+}
+.ni:hover{background:rgba(255,255,255,0.08);color:#fff}
+.ni.on{background:rgba(126,255,192,0.15);color:#7effc0;border-color:rgba(126,255,192,0.25)}
+.ni-ic{font-size:15px;width:18px;text-align:center}
+.side-usr{
+  padding:14px 16px;border-top:1px solid rgba(255,255,255,0.1);
+  display:flex;align-items:center;gap:10px;cursor:pointer;
+  transition:background .15s;
+}
+.side-usr:hover{background:rgba(255,255,255,0.05)}
+.ava{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:#0d6b3d;
+  flex-shrink:0;border:2px solid rgba(126,255,192,0.3);
+}
+.ui-name{font-size:13px;font-weight:500;color:#fff}
+.ui-rol{font-size:10px;color:rgba(255,255,255,0.45)}
+
+
+.main-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: transparent; /* Cambia esto para ver la foto de fondo */
+}
+.pg-title{font-family:'Syne',sans-serif;font-weight:700;font-size:17px;color:var(--green-dark)}
+.pill{
+  display:flex;align-items:center;gap:6px;
+  background:var(--green-light);border:1px solid var(--green-mid);
+  padding:5px 13px;border-radius:20px;font-size:11px;color:var(--green);font-weight:500;
+}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--green);animation:p 2s infinite}
+@keyframes p{0%,100%{box-shadow:0 0 0 0 rgba(26,158,92,.4)}50%{box-shadow:0 0 0 5px rgba(26,158,92,0)}}
+.pg{padding:24px;overflow-y:auto;flex:1;animation:fu .25s ease}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+
+.mg{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
+.mc{
+  background:var(--card);border:1px solid var(--bord);border-radius:var(--radius);
+  padding:18px;position:relative;overflow:hidden;transition:all .2s;
+  box-shadow:var(--shadow);
+}
+.mc:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.mc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.mc.g::before{background:var(--green)}
+.mc.b::before{background:var(--blue)}
+.mc.a::before{background:var(--amber)}
+.mc.r::before{background:var(--red)}
+.mc-lbl{font-size:10px;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px;font-weight:500}
+.mc-val{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;line-height:1;color:var(--text)}
+.mc-val.g{color:var(--green)}.mc-val.b{color:var(--blue)}.mc-val.a{color:var(--amber)}
+.mc-unit{font-size:13px;font-weight:400;color:var(--muted);margin-left:3px}
+.mc-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;margin-top:8px;padding:3px 8px;border-radius:5px;font-weight:500}
+.bg-b{background:var(--green-light);color:var(--green)}
+.br-b{background:#fdeaea;color:var(--red)}
+.bn-b{background:#f5f5f5;color:var(--muted)}
+
+.card{background:var(--card);border:1px solid var(--bord);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.ctit{font-size:10px;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px;font-weight:600}
+.cr{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:22px}
+
+
+.dg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.dc{
+  background:var(--card);border:1px solid var(--bord);border-radius:var(--radius);
+  padding:16px;transition:all .2s;box-shadow:var(--shadow);
+}
+.dc:hover{border-color:var(--green);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.dc.off{opacity:.55}
+.dh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.dic{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--green-light);border:1px solid var(--green-mid);
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.dic.off{background:#f5f5f5;border-color:#e0e0e0}
+.tog{width:36px;height:20px;border-radius:10px;border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
+.tog.on{background:var(--green)}.tog.off{background:#d0d0d0}
+.tog::after{content:'';position:absolute;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .2s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.tog.on::after{left:18px}.tog.off::after{left:2px}
+.dn{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-bottom:2px}
+.dt{font-size:11px;color:var(--muted)}
+.dl{font-size:11px;color:var(--muted);margin-top:8px}
+.dkwh{font-family:'Syne',sans-serif;font-weight:700;font-size:17px;color:var(--green);margin-top:8px}
+.dksub{font-size:10px;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:400}
+.pb{height:4px;background:var(--green-light);border-radius:2px;margin-top:10px}
+.pf{height:100%;border-radius:2px;background:var(--green);transition:width .5s}
+.dbtns{display:flex;gap:7px;margin-top:12px}
+
+
+.fside{background:var(--card);border:1px solid var(--bord);border-radius:var(--radius);padding:18px;height:fit-content;box-shadow:var(--shadow)}
+.fg{display:flex;flex-direction:column;gap:13px}
+.fl{font-size:10px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px;font-weight:600}
+input,select{
+  background:var(--bg);border:1px solid var(--bord);border-radius:8px;
+  padding:10px 13px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;
+  width:100%;outline:none;transition:all .2s;
+}
+input:focus,select:focus{border-color:var(--green);background:#fff;box-shadow:0 0 0 3px rgba(26,158,92,0.1)}
+select option{background:#fff}
+.btn{
+  padding:10px 18px;border-radius:8px;border:none;cursor:pointer;
+  font-family:'Syne',sans-serif;font-weight:600;font-size:12px;
+  transition:all .2s;letter-spacing:.3px;
+}
+.bp{background:var(--green);color:#fff}.bp:hover{background:var(--green-dark);transform:translateY(-1px)}
+.bg2{background:#f5f7f5;color:var(--muted);border:1px solid var(--bord)}.bg2:hover{border-color:var(--red);color:var(--red)}
+.bd{background:#fdeaea;color:var(--red);border:1px solid #f5c0c0}.bd:hover{background:var(--red);color:#fff}
+.bb{background:#e8f0fd;color:var(--blue);border:1px solid #b8d0f0}.bb:hover{background:var(--blue);color:#fff}
+
+
+table{width:100%;border-collapse:collapse}
+th{
+  font-size:10px;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;
+  padding:10px 14px;border-bottom:2px solid var(--bord);text-align:left;font-weight:600;
+}
+td{padding:13px 14px;border-bottom:1px solid var(--green-light);font-size:13px}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--green-light)}
+.bs{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:600}
+.bsa{background:var(--green-light);color:var(--green);border:1px solid var(--green-mid)}
+.bsi{background:#f5f5f5;color:var(--muted);border:1px solid #e0e0e0}
+
+
+.rc{
+  background:var(--card);border:1px solid var(--bord);border-radius:var(--radius);
+  padding:20px;display:flex;align-items:center;justify-content:space-between;
+  transition:all .2s;margin-bottom:12px;box-shadow:var(--shadow);
+}
+.rc:hover{border-color:var(--green);box-shadow:var(--shadow-md)}
+.rp{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--text)}
+.rd{font-size:11px;color:var(--muted);margin-top:3px}
+.rst{display:flex;gap:30px}
+.ri p{font-size:10px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;font-weight:600}
+.ri span{font-family:'Syne',sans-serif;font-weight:700;font-size:19px}
+.eb{width:110px;height:6px;background:var(--green-light);border-radius:3px;margin-top:6px}
+.ef{height:100%;border-radius:3px}
+
+
+.notif{
+  position:fixed;bottom:22px;right:22px;background:#fff;
+  border:1px solid var(--green);border-radius:var(--radius);
+  padding:13px 20px;display:flex;align-items:center;gap:9px;
+  font-size:13px;color:var(--green);animation:si .3s ease;
+  box-shadow:0 4px 20px rgba(26,158,92,0.2);z-index:999;font-weight:500;
+}
+@keyframes si{from{transform:translateX(110%);opacity:0}to{transform:translateX(0);opacity:1}}
+
+
+.auth-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent; 
+    padding: 20px;
+}
+.auth-box{
+  background:#fff;border-radius:18px;padding:38px;
+  width:100%;max-width:390px;box-shadow:0 8px 40px rgba(13,107,61,0.25);
+}
+.auth-logo{text-align:center;margin-bottom:28px}
+.auth-logo-txt{font-family:'Syne',sans-serif;font-weight:800;font-size:24px;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--green-dark);margin-bottom:5px}
+.auth-logo-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(26,158,92,.4)}
+.auth-logo-txt em{color:var(--green);font-style:normal}
+.auth-sub{font-size:11px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase}
+.auth-tabs{display:flex;gap:0;margin-bottom:22px;background:var(--bg);border-radius:9px;padding:3px}
+.auth-tab{flex:1;padding:9px;text-align:center;font-size:12px;font-family:'Syne',sans-serif;font-weight:700;border-radius:7px;cursor:pointer;color:var(--muted);transition:all .2s}
+.auth-tab.on{background:#fff;color:var(--green-dark);box-shadow:0 1px 6px rgba(26,158,92,0.12)}
+.auth-field{margin-bottom:14px}
+.auth-field label{display:block;font-size:10px;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px;font-weight:600}
+.auth-err{background:#fdeaea;border:1px solid #f5c0c0;color:var(--red);font-size:12px;padding:10px 13px;border-radius:8px;margin-bottom:14px;display:none}
+.auth-divider{text-align:center;margin-top:16px;font-size:12px;color:var(--muted)}
+.auth-divider span{color:var(--green);cursor:pointer;font-weight:600}
+.auth-divider span:hover{color:var(--green-dark)}
+
+/* ── Usuarios ── */
+.usr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
+.usr-card{background:var(--card);border:1px solid var(--bord);border-radius:var(--radius);padding:18px;transition:all .2s;box-shadow:var(--shadow)}
+.usr-card:hover{box-shadow:var(--shadow-md);border-color:var(--green)}
+.usr-card.me{border-color:var(--green);border-width:2px}
+.usr-av{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:17px;color:#fff;margin-bottom:11px;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.usr-nm{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text)}
+.usr-em{font-size:11px;color:var(--muted);margin-top:2px}
+.usr-stats{display:flex;gap:16px;margin-top:13px;padding-top:13px;border-top:1px solid var(--bord)}
+.usr-stat p{font-size:9px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;font-weight:600}
+.usr-stat span{font-family:'Syne',sans-serif;font-weight:700;font-size:15px}
+
+/* ── Consumo form ── */
+.cons-form{background:var(--card);border:1px solid var(--bord);border-radius:var(--radius);padding:20px;margin-bottom:20px;box-shadow:var(--shadow)}
+.cons-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:end}
+
+/* ── Loading ── */
+.loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;gap:16px;background:var(--bg)}
+.spinner{width:38px;height:38px;border:3px solid var(--green-light);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Barra de período ── */
+.pbtn{display:flex;gap:8px;margin-bottom:18px}
+.pbtn .btn{padding:7px 18px;font-size:11px}
+
+/* ── Empty state ── */
+.empty{text-align:center;padding:36px;color:var(--muted)}
+.empty-icon{font-size:36px;margin-bottom:10px}
+.empty-txt{font-size:14px;margin-bottom:14px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const AVA_COLORS=["#1a9e5c","#1a7fc4","#d4860a","#7b52c9","#d94040","#0d7c7c"];
+let DB={usuarios:[],dispositivos:[],consumos:[],reportes:[]};
+let SESS={userId:null};
+let pg="dashboard";
+let editDevId=null;
+
+function loadDB(){
+  try{const r=localStorage.getItem("es-db");if(r)DB=JSON.parse(r);}catch(e){}
+  try{const s=localStorage.getItem("es-sess");if(s)SESS=JSON.parse(s);}catch(e){}
+}
+function saveDB(){try{localStorage.setItem("es-db",JSON.stringify(DB));}catch(e){}}
+function saveSess(){try{localStorage.setItem("es-sess",JSON.stringify(SESS));}catch(e){}}
+function curUser(){return DB.usuarios.find(u=>u.id===SESS.userId)}
+function myDevs(){return DB.dispositivos.filter(d=>d.userId===SESS.userId)}
+function myConsumos(){return DB.consumos.filter(c=>c.userId===SESS.userId)}
+
+function notify(msg,col){
+  col=col||"var(--green)";
+  const old=document.getElementById("notif-toast");if(old)old.remove();
+  const el=document.createElement("div");el.id="notif-toast";el.className="notif";
+  el.style.borderColor=col;el.style.color=col;
+  el.innerHTML=`<span style="font-size:16px">✓</span>${msg}`;
+  document.body.appendChild(el);
+  setTimeout(()=>{if(el.parentNode)el.remove();},2800);
+}
+
+// ── SVG Charts ───────────────────────────────────────────────────────────────
+function barSVG(datasets,labels,colors){
+  const W=500,H=190,PL=34,PB=26,PT=8,cW=W-PL,cH=H-PB-PT;
+  const all=datasets.flatMap(d=>d.data);
+  const mx=Math.max(...all,1)*1.15;
+  const n=labels.length,sets=datasets.length;
+  const gW=cW/n,bW=Math.min((gW/sets)-4,22);
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="100%">`;
+  [0,.25,.5,.75,1].forEach(t=>{
+    const y=PT+cH*(1-t);
+    s+=`<line x1="${PL}" x2="${W}" y1="${y}" y2="${y}" stroke="#d4e8db" stroke-width="1"/>`;
+    s+=`<text x="${PL-5}" y="${y+4}" fill="#5a7a66" font-size="9" text-anchor="end">${(mx*t).toFixed(1)}</text>`;
+  });
+  labels.forEach((lbl,gi)=>{
+    datasets.forEach((ds,si)=>{
+      const val=ds.data[gi]||0;
+      const bh=(val/mx)*cH;
+      const bx=PL+gi*gW+(gW-sets*(bW+3))/2+si*(bW+3);
+      const by=PT+cH-bh;
+      s+=`<rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bW}" height="${Math.max(bh,0).toFixed(1)}" fill="${colors[si]}" rx="4" opacity=".85"/>`;
+    });
+    s+=`<text x="${(PL+gi*gW+gW/2).toFixed(1)}" y="${H-8}" fill="#5a7a66" font-size="10" text-anchor="middle">${lbl}</text>`;
+  });
+  datasets.forEach((ds,i)=>{
+    s+=`<rect x="${PL+i*110}" y="${H-10}" width="10" height="10" rx="3" fill="${colors[i]}"/>`;
+    s+=`<text x="${PL+i*110+14}" y="${H-1}" fill="#5a7a66" font-size="10">${ds.label}</text>`;
+  });
+  return s+"</svg>";
+}
+
+function lineSVG(vals,labels,color){
+  if(!vals.length||vals.every(v=>v===0))return`<div style="height:155px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;flex-direction:column;gap:8px"><div style="font-size:28px">📊</div>Sin datos de consumo aún</div>`;
+  const W=460,H=155,PL=28,PB=22,PT=8,cW=W-PL,cH=H-PB-PT;
+  const mx=Math.max(...vals,1)*1.2;
+  const pts=vals.map((v,i)=>({x:PL+i/(Math.max(vals.length-1,1))*cW,y:PT+cH-(v/mx)*cH}));
+  const path=pts.map((p,i)=>`${i?"L":"M"} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(" ");
+  const area=`${path} L ${pts[pts.length-1].x} ${PT+cH} L ${pts[0].x} ${PT+cH} Z`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="100%">
+  <defs><linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0%" stop-color="${color}" stop-opacity=".2"/>
+  <stop offset="100%" stop-color="${color}" stop-opacity="0.02"/>
+  </linearGradient></defs>`;
+  [.25,.5,.75,1].forEach(t=>s+=`<line x1="${PL}" x2="${W}" y1="${PT+cH*(1-t)}" y2="${PT+cH*(1-t)}" stroke="#d4e8db" stroke-width="1"/>`);
+  s+=`<path d="${area}" fill="url(#lg1)"/>`;
+  s+=`<path d="${path}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>`;
+  pts.forEach((p,i)=>{
+    s+=`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" fill="${color}" stroke="#fff" stroke-width="2"/>`;
+    if(labels[i])s+=`<text x="${p.x.toFixed(1)}" y="${H-6}" fill="#5a7a66" font-size="9" text-anchor="middle">${labels[i]}</text>`;
+  });
+  return s+"</svg>";
+}
+
+function donutSVG(items){
+  const total=items.reduce((s,it)=>s+it.val,0)||1;
+  let angle=-Math.PI/2,R=58,ri=36,cx=75,cy=75;
+  let paths="";
+  items.forEach(it=>{
+    const sw=(it.val/total)*2*Math.PI;
+    const x1=cx+R*Math.cos(angle),y1=cy+R*Math.sin(angle);
+    angle+=sw;
+    const x2=cx+R*Math.cos(angle),y2=cy+R*Math.sin(angle);
+    const lg=sw>Math.PI?1:0;
+    paths+=`<path d="M${cx} ${cy} L${x1.toFixed(1)} ${y1.toFixed(1)} A${R} ${R} 0 ${lg} 1 ${x2.toFixed(1)} ${y2.toFixed(1)} Z" fill="${it.color}"/>`;
+  });
+  const legend=items.map(it=>`<div style="display:flex;align-items:center;gap:7px;font-size:11px;margin-bottom:7px">
+    <div style="width:9px;height:9px;border-radius:50%;background:${it.color}"></div>
+    <span style="color:var(--muted)">${it.label}</span>
+    <span style="margin-left:auto;font-weight:700;color:var(--text)">${Math.round(it.val/total*100)}%</span>
+  </div>`).join("");
+  return`<div style="display:flex;align-items:center;gap:20px">
+    <svg viewBox="0 0 150 150" width="130" height="130">${paths}
+      <circle cx="${cx}" cy="${cy}" r="${ri}" fill="#fff" stroke="var(--bord)" stroke-width="1"/>
+      <text x="${cx}" y="${cy-3}" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="bold">${total}</text>
+      <text x="${cx}" y="${cy+13}" text-anchor="middle" fill="#5a7a66" font-size="9">kWh</text>
+    </svg>
+    <div style="flex:1">${legend}</div>
+  </div>`;
+}
+
+
+function renderAuth(tab){
+  tab=tab||"login";
+  document.getElementById("root").innerHTML=`
+  <div class="auth-wrap">
+    <div class="auth-box">
+      <div class="auth-logo">
+        <div class="auth-logo-txt"><div class="auth-logo-dot"></div>Energi<em>Smart</em></div>
+        <div class="auth-sub">Sistema inteligente de optimización energética</div>
+      </div>
+      <div class="auth-tabs">
+        <div class="auth-tab ${tab==="login"?"on":""}" onclick="renderAuth('login')">Iniciar sesión</div>
+        <div class="auth-tab ${tab==="register"?"on":""}" onclick="renderAuth('register')">Registrarse</div>
+      </div>
+      <div id="auth-err" class="auth-err"></div>
+      ${tab==="login"?`
+        <div class="auth-field"><label>Correo electrónico</label><input id="a-email" type="email" placeholder="correo@ejemplo.com" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+        <div class="auth-field"><label>Contraseña</label><input id="a-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+        <button class="btn bp" style="width:100%;margin-top:6px;padding:12px" onclick="doLogin()">Iniciar sesión</button>
+        <div class="auth-divider">¿No tienes cuenta? <span onclick="renderAuth('register')">Regístrate gratis</span></div>
+      `:`
+        <div class="auth-field"><label>Nombre completo</label><input id="a-nombre" placeholder="Ej: Luis Mario"/></div>
+        <div class="auth-field"><label>Correo electrónico</label><input id="a-email" type="email" placeholder="correo@ejemplo.com"/></div>
+        <div class="auth-field"><label>Contraseña</label><input id="a-pass" type="password" placeholder="Mínimo 6 caracteres"/></div>
+        <div class="auth-field"><label>Confirmar contraseña</label><input id="a-pass2" type="password" placeholder="Repite la contraseña" onkeydown="if(event.key==='Enter')doRegister()"/></div>
+        <button class="btn bp" style="width:100%;margin-top:6px;padding:12px" onclick="doRegister()">Crear cuenta</button>
+        <div class="auth-divider">¿Ya tienes cuenta? <span onclick="renderAuth('login')">Inicia sesión</span></div>
+      `}
+    </div>
+  </div>`;
+}
+
+function authErr(msg){const el=document.getElementById("auth-err");el.textContent=msg;el.style.display="block";}
+
+function doLogin(){
+  const email=document.getElementById("a-email").value.trim().toLowerCase();
+  const pass=document.getElementById("a-pass").value;
+  if(!email||!pass){authErr("Completa todos los campos");return;}
+  const u=DB.usuarios.find(u=>u.email===email&&u.pass===btoa(pass));
+  if(!u){authErr("Correo o contraseña incorrectos");return;}
+  SESS={userId:u.id};saveSess();pg="dashboard";editDevId=null;renderApp();
+}
+
+function doRegister(){
+  const nombre=document.getElementById("a-nombre").value.trim();
+  const email=document.getElementById("a-email").value.trim().toLowerCase();
+  const pass=document.getElementById("a-pass").value;
+  const pass2=document.getElementById("a-pass2").value;
+  if(!nombre||!email||!pass){authErr("Completa todos los campos");return;}
+  if(pass.length<6){authErr("La contraseña debe tener al menos 6 caracteres");return;}
+  if(pass!==pass2){authErr("Las contraseñas no coinciden");return;}
+  if(DB.usuarios.find(u=>u.email===email)){authErr("Ese correo ya está registrado");return;}
+  const u={id:Date.now(),nombre,email,pass:btoa(pass),color:AVA_COLORS[DB.usuarios.length%AVA_COLORS.length],fecha:new Date().toLocaleDateString("es-CO")};
+  DB.usuarios.push(u);saveDB();SESS={userId:u.id};saveSess();pg="dashboard";editDevId=null;
+  renderApp();notify("¡Bienvenido, "+nombre.split(" ")[0]+"!");
+}
+
+function doLogout(){SESS={userId:null};saveSess();renderAuth("login");}
+
+// ── APP SHELL ────────────────────────────────────────────────────────────────
+function renderApp(){
+  const u=curUser();
+  if(!u){renderAuth("login");return;}
+  const titles={dashboard:"Panel de control",dispositivos:"Dispositivos eléctricos",consumo:"Monitoreo de consumo",reportes:"Reportes de eficiencia",usuarios:"Gestión de usuarios"};
+  document.getElementById("root").innerHTML=`
+  <div class="wrap" id="app-wrap">
+    <aside class="side">
+      <div class="logo">
+        <div class="logo-txt"><div class="logo-dot"></div>Energi<em>Smart</em></div>
+        <div class="logo-sub">Sistema energético v1.0</div>
+      </div>
+      <nav class="nav">
+        <div class="nav-lbl">Principal</div>
+        <div class="ni" data-p="dashboard" onclick="goTo('dashboard')"><span class="ni-ic">◈</span>Dashboard</div>
+        <div class="ni" data-p="dispositivos" onclick="goTo('dispositivos')"><span class="ni-ic">⚡</span>Dispositivos</div>
+        <div class="ni" data-p="consumo" onclick="goTo('consumo')"><span class="ni-ic">📊</span>Consumo</div>
+        <div class="ni" data-p="reportes" onclick="goTo('reportes')"><span class="ni-ic">📋</span>Reportes</div>
+        <div class="nav-lbl" style="margin-top:10px">Administración</div>
+        <div class="ni" data-p="usuarios" onclick="goTo('usuarios')"><span class="ni-ic">👥</span>Usuarios</div>
+      </nav>
+      <div class="side-usr" onclick="goTo('dashboard')">
+        <div class="ava" style="background:${u.color}">${u.nombre.charAt(0).toUpperCase()}</div>
+        <div><div class="ui-name">${u.nombre.split(" ")[0]}</div><div class="ui-rol">${u.email}</div></div>
+      </div>
+    </aside>
+    <div class="main-area">
+      <header class="topbar">
+        <div class="pg-title" id="pg-title">${titles[pg]}</div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="pill"><div class="pulse"></div>Sistema activo</div>
+          <span style="font-size:11px;color:var(--muted)">${new Date().toLocaleDateString("es-CO",{weekday:"long",day:"numeric",month:"long"})}</span>
+          <button class="btn bg2" style="font-size:11px;padding:6px 13px" onclick="doLogout()">Salir →</button>
+        </div>
+      </header>
+      <div id="content"></div>
+    </div>
+  </div>`;
+  updateNav();renderPage();
+}
+
+function goTo(p){
+  pg=p;editDevId=null;
+  const titles={dashboard:"Panel de control",dispositivos:"Dispositivos eléctricos",consumo:"Monitoreo de consumo",reportes:"Reportes de eficiencia",usuarios:"Gestión de usuarios"};
+  const t=document.getElementById("pg-title");if(t)t.textContent=titles[p];
+  updateNav();renderPage();
+}
+
+function updateNav(){
+  document.querySelectorAll(".ni").forEach(n=>n.classList.toggle("on",n.dataset.p===pg));
+}
+
+function renderPage(){
+  const el=document.getElementById("content");
+  if(!el)return;
+  const map={dashboard:renderDashboard,dispositivos:renderDispositivos,consumo:renderConsumo,reportes:renderReportes,usuarios:renderUsuarios};
+  if(map[pg])el.innerHTML=map[pg]();
+}
+
+// ── DASHBOARD ────────────────────────────────────────────────────────────────
+function renderDashboard(){
+  const u=curUser();
+  const devs=myDevs();
+  const cons=myConsumos();
+  const act=devs.filter(d=>d.activo);
+  const total=cons.reduce((s,c)=>s+c.kwh,0);
+  const hoy=new Date().toLocaleDateString("es-CO");
+  const kwhHoy=cons.filter(c=>c.fecha===hoy).reduce((s,c)=>s+c.kwh,0);
+  const ef=Math.max(60,Math.min(100,Math.round(85-(total/(Math.max(cons.length,1)*2)))));
+
+  const u7=[],l7=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    l7.push(d.toLocaleDateString("es-CO",{weekday:"short"}));
+    const f=d.toLocaleDateString("es-CO");
+    u7.push(parseFloat(cons.filter(c=>c.fecha===f).reduce((s,c)=>s+c.kwh,0).toFixed(2)));
+  }
+
+  const donutItems=[
+    {label:"Climatización",val:cons.filter(c=>{const d=DB.dispositivos.find(x=>x.id===c.devId);return d&&d.tipo==="Climatización";}).reduce((s,c)=>s+c.kwh,0)|0,color:"#1a9e5c"},
+    {label:"Electrodoméstico",val:cons.filter(c=>{const d=DB.dispositivos.find(x=>x.id===c.devId);return d&&d.tipo==="Electrodoméstico";}).reduce((s,c)=>s+c.kwh,0)|0,color:"#1a7fc4"},
+    {label:"Entretenimiento",val:cons.filter(c=>{const d=DB.dispositivos.find(x=>x.id===c.devId);return d&&d.tipo==="Entretenimiento";}).reduce((s,c)=>s+c.kwh,0)|0,color:"#d4860a"},
+    {label:"Otros",val:cons.filter(c=>{const d=DB.dispositivos.find(x=>x.id===c.devId);return d&&!["Climatización","Electrodoméstico","Entretenimiento"].includes(d.tipo);}).reduce((s,c)=>s+c.kwh,0)|0,color:"#7b52c9"},
+  ].filter(it=>it.val>0);
+
+  return`<div class="pg">
+  <div style="margin-bottom:20px">
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:22px;color:var(--green-dark)">
+      Hola, <span style="color:var(--green)">${u.nombre.split(" ")[0]}</span> 👋
+    </div>
+    <div style="font-size:13px;color:var(--muted);margin-top:3px">Aquí está el resumen energético de tu cuenta</div>
+  </div>
+  <div class="mg">
+    <div class="mc g"><div class="mc-lbl">Consumo hoy</div><div class="mc-val g">${kwhHoy.toFixed(1)}<span class="mc-unit">kWh</span></div><div class="mc-badge bg-b">📅 ${hoy}</div></div>
+    <div class="mc b"><div class="mc-lbl">Consumo total</div><div class="mc-val b">${total.toFixed(1)}<span class="mc-unit">kWh</span></div><div class="mc-badge bn-b">${cons.length} registros</div></div>
+    <div class="mc a"><div class="mc-lbl">Eficiencia</div><div class="mc-val a">${ef}<span class="mc-unit">%</span></div><div class="mc-badge ${ef>=80?"bg-b":"br-b"}">${ef>=80?"✓ Buena":"⚠ Mejorable"}</div></div>
+    <div class="mc r"><div class="mc-lbl">Dispositivos activos</div><div class="mc-val">${act.length}<span class="mc-unit">/ ${devs.length}</span></div><div class="mc-badge bn-b">${devs.length===0?"Sin registros":devs.length-act.length+" inactivos"}</div></div>
+  </div>
+  <div class="cr">
+    <div class="card"><div class="ctit">Consumo últimos 7 días (kWh)</div><div style="height:190px">${lineSVG(u7,l7,"#1a9e5c")}</div></div>
+    <div class="card"><div class="ctit">Por tipo de dispositivo</div>${donutItems.length?donutSVG(donutItems):`<div class="empty"><div class="empty-icon">🍩</div><div class="empty-txt">Registra consumo para ver la distribución</div></div>`}</div>
+  </div>
+  ${devs.length?`<div class="card"><div class="ctit">Mis dispositivos</div>
+  <div style="overflow-x:auto"><table>
+    <thead><tr><th>Dispositivo</th><th>Tipo</th><th>Ubicación</th><th>Estado</th><th>kWh registrados</th></tr></thead>
+    <tbody>${devs.map(d=>{
+      const kd=cons.filter(c=>c.devId===d.id).reduce((s,c)=>s+c.kwh,0);
+      return`<tr><td><strong>${d.nombre}</strong></td><td style="color:var(--muted)">${d.tipo}</td><td style="color:var(--muted)">${d.ubicacion}</td>
+      <td><span class="bs ${d.activo?"bsa":"bsi"}">${d.activo?"● Activo":"○ Inactivo"}</span></td>
+      <td><strong style="color:var(--green)">${kd.toFixed(2)} kWh</strong></td></tr>`;
+    }).join("")}</tbody>
+  </table></div></div>`:
+  `<div class="card empty"><div class="empty-icon">⚡</div><div class="empty-txt">Aún no tienes dispositivos registrados</div>
+  <button class="btn bp" onclick="goTo('dispositivos')">Registrar primer dispositivo</button></div>`}
+  </div>`;
+}
+
+// ── DISPOSITIVOS ─────────────────────────────────────────────────────────────
+function renderDispositivos(){
+  const devs=myDevs();
+  const cons=myConsumos();
+  const iconos={"Climatización":"❄️","Electrodoméstico":"🏠","Entretenimiento":"📺","Iluminación":"💡","Otro":"⚡"};
+  const mx=Math.max(...devs.map(d=>d.kwh),1);
+  const fv=editDevId?devs.find(d=>d.id===editDevId):null;
+  const tipos=["Electrodoméstico","Climatización","Entretenimiento","Iluminación","Otro"];
+
+  const cards=devs.map(d=>{
+    const kd=cons.filter(c=>c.devId===d.id).reduce((s,c)=>s+c.kwh,0);
+    return`<div class="dc ${d.activo?"":"off"}">
+      <div class="dh">
+        <div class="dic ${d.activo?"":"off"}">${iconos[d.tipo]||"⚡"}</div>
+        <button class="tog ${d.activo?"on":"off"}" onclick="toggleDev(${d.id})"></button>
+      </div>
+      <div class="dn">${d.nombre}</div>
+      <div class="dt">${d.tipo}</div>
+      <div class="dl">📍 ${d.ubicacion}</div>
+      <div class="dkwh">${kd.toFixed(2)} <span class="dksub">kWh registrados</span></div>
+      <div class="pb"><div class="pf" style="width:${Math.round(d.kwh/mx*100)}%"></div></div>
+      <div class="dbtns">
+        <button class="btn bg2" style="font-size:10px;padding:5px 10px" onclick="editDev(${d.id})">✎ Editar</button>
+        <button class="btn bd" style="font-size:10px;padding:5px 10px" onclick="delDev(${d.id})">✕ Eliminar</button>
+      </div>
+    </div>`;
+  }).join("");
+
+  return`<div class="pg" style="display:grid;grid-template-columns:1fr 310px;gap:20px;align-items:start">
+  <div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:var(--text)">${devs.length} dispositivos registrados</span>
+      <span style="font-size:11px;color:var(--muted)">${devs.filter(d=>d.activo).length} activos · ${devs.filter(d=>!d.activo).length} inactivos</span>
+    </div>
+    ${devs.length?`<div class="dg">${cards}</div>`:`<div class="card empty"><div class="empty-icon">⚡</div><div class="empty-txt">Registra tu primer dispositivo eléctrico usando el formulario</div></div>`}
+  </div>
+  <div class="fside">
+    <div class="ctit">${editDevId?"✎ Editar dispositivo":"+ Nuevo dispositivo"}</div>
+    <div class="fg">
+      <div><div class="fl">Nombre del dispositivo</div><input id="f-nom" value="${fv?fv.nombre:""}" placeholder="Ej: Aire acondicionado"/></div>
+      <div><div class="fl">Tipo</div><select id="f-tipo">${tipos.map(t=>`<option ${fv&&fv.tipo===t?"selected":""}>${t}</option>`).join("")}</select></div>
+      <div><div class="fl">Ubicación</div><input id="f-ubi" value="${fv?fv.ubicacion:""}" placeholder="Ej: Sala principal"/></div>
+      <div><div class="fl">Consumo estimado (kWh/hora)</div><input id="f-kwh" type="number" step="0.01" value="${fv?fv.kwh:""}" placeholder="Ej: 1.5"/></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn bp" style="flex:1" onclick="guardarDev()">${editDevId?"Actualizar":"Guardar dispositivo"}</button>
+        ${editDevId?`<button class="btn bg2" onclick="cancelEditDev()">✕</button>`:""}
+      </div>
+    </div>
+  </div>
+  </div>`;
+}
+
+function toggleDev(id){const d=DB.dispositivos.find(x=>x.id===id);if(d){d.activo=!d.activo;saveDB();notify(`${d.nombre} ${d.activo?"activado":"desactivado"}`);renderPage();}}
+function delDev(id){const d=DB.dispositivos.find(x=>x.id===id);DB.dispositivos=DB.dispositivos.filter(x=>x.id!==id);DB.consumos=DB.consumos.filter(c=>c.devId!==id);saveDB();notify(d?d.nombre+" eliminado":"Eliminado");renderPage();}
+function editDev(id){editDevId=id;renderPage();}
+function cancelEditDev(){editDevId=null;renderPage();}
+function guardarDev(){
+  const nom=document.getElementById("f-nom").value.trim();
+  const tipo=document.getElementById("f-tipo").value;
+  const ubi=document.getElementById("f-ubi").value.trim();
+  const kwh=parseFloat(document.getElementById("f-kwh").value);
+  if(!nom||!ubi||isNaN(kwh)||kwh<=0){notify("Completa todos los campos correctamente","var(--red)");return;}
+  if(editDevId){
+    const d=DB.dispositivos.find(x=>x.id===editDevId);
+    if(d)Object.assign(d,{nombre:nom,tipo,ubicacion:ubi,kwh});
+    notify("Dispositivo actualizado");editDevId=null;
+  }else{
+    DB.dispositivos.push({id:Date.now(),userId:SESS.userId,nombre:nom,tipo,ubicacion:ubi,kwh,activo:true});
+    notify("Dispositivo registrado ✓");
+  }
+  saveDB();renderPage();
+}
+
+// ── CONSUMO ──────────────────────────────────────────────────────────────────
+function renderConsumo(){
+  const devs=myDevs();
+  const cons=myConsumos().slice().reverse();
+  const hoy=new Date().toLocaleDateString("es-CO");
+  const kwhHoy=cons.filter(c=>c.fecha===hoy).reduce((s,c)=>s+c.kwh,0);
+
+  const u7=[],l7=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    l7.push(d.toLocaleDateString("es-CO",{weekday:"short"}));
+    const f=d.toLocaleDateString("es-CO");
+    u7.push(parseFloat(cons.filter(c=>c.fecha===f).reduce((s,c)=>s+c.kwh,0).toFixed(2)));
+  }
+
+  const devOpts=devs.length?devs.map(d=>`<option value="${d.id}">${d.nombre}</option>`).join(""):`<option value="">Sin dispositivos registrados</option>`;
+
+  return`<div class="pg">
+  <div class="cons-form">
+    <div class="ctit">📝 Registrar nuevo consumo</div>
+    <div class="cons-row">
+      <div><div class="fl">Dispositivo</div><select id="c-dev">${devOpts}</select></div>
+      <div><div class="fl">kWh consumidos</div><input id="c-kwh" type="number" step="0.01" min="0.01" placeholder="Ej: 2.5"/></div>
+      <div><div class="fl">Fecha</div><input id="c-fecha" type="date" value="${new Date().toISOString().split('T')[0]}"/></div>
+      <button class="btn bp" style="align-self:flex-end;white-space:nowrap" onclick="regConsumo()">+ Registrar</button>
+    </div>
+  </div>
+  <div class="cr" style="margin-bottom:20px">
+    <div class="card"><div class="ctit">Consumo últimos 7 días</div><div style="height:155px">${lineSVG(u7,l7,"#1a9e5c")}</div></div>
+    <div class="card" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="mc-lbl">Total registrado hoy</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:32px;color:var(--green);margin:8px 0">${kwhHoy.toFixed(2)}<span style="font-size:14px;font-weight:400;color:var(--muted);margin-left:4px">kWh</span></div>
+      <div style="font-size:12px;color:var(--muted)">${cons.filter(c=>c.fecha===hoy).length} registros hoy</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctit">Historial de consumo</div>
+    ${cons.length?`<div style="overflow-x:auto"><table>
+      <thead><tr><th>Fecha</th><th>Dispositivo</th><th>kWh</th><th>Hora</th><th></th></tr></thead>
+      <tbody>${cons.slice(0,60).map(c=>{
+        const d=DB.dispositivos.find(x=>x.id===c.devId);
+        return`<tr>
+          <td style="color:var(--muted)">${c.fecha}</td>
+          <td><strong>${d?d.nombre:"Dispositivo eliminado"}</strong></td>
+          <td><strong style="color:var(--green)">${c.kwh.toFixed(2)} kWh</strong></td>
+          <td style="color:var(--muted)">${c.hora||"-"}</td>
+          <td><button class="btn bd" style="font-size:10px;padding:3px 9px" onclick="delConsumo(${c.id})">✕</button></td>
+        </tr>`;
+      }).join("")}</tbody>
+    </table></div>`:`<div class="empty"><div class="empty-icon">📊</div><div class="empty-txt">Sin registros de consumo aún. Usa el formulario de arriba para empezar.</div></div>`}
+  </div>
+  </div>`;
+}
+
+function regConsumo(){
+  const devId=parseInt(document.getElementById("c-dev").value);
+  const kwh=parseFloat(document.getElementById("c-kwh").value);
+  const fechaRaw=document.getElementById("c-fecha").value;
+  if(!devId||isNaN(kwh)||kwh<=0||!fechaRaw){notify("Completa todos los campos correctamente","var(--red)");return;}
+  const d=new Date(fechaRaw+"T12:00:00");
+  const fecha=d.toLocaleDateString("es-CO");
+  const hora=new Date().toLocaleTimeString("es-CO",{hour:"2-digit",minute:"2-digit"});
+  DB.consumos.push({id:Date.now(),userId:SESS.userId,devId,kwh,fecha,hora});
+  saveDB();
+  document.getElementById("c-kwh").value="";
+  notify("Consumo registrado: "+kwh+" kWh ✓");
+  renderPage();
+}
+function delConsumo(id){DB.consumos=DB.consumos.filter(c=>c.id!==id);saveDB();notify("Registro eliminado");renderPage();}
+
+// ── REPORTES ─────────────────────────────────────────────────────────────────
+function renderReportes(){
+  const cons=myConsumos();
+  const reps=DB.reportes.filter(r=>r.userId===SESS.userId).slice().reverse();
+
+  const grupos={};
+  cons.forEach(c=>{
+    const parts=c.fecha.split("/");
+    if(parts.length===3){const k=`${parts[1]}/${parts[2]}`;grupos[k]=(grupos[k]||0)+c.kwh;}
+  });
+  const gKeys=Object.keys(grupos).slice(-6);
+  const gVals=gKeys.map(k=>parseFloat(grupos[k].toFixed(2)));
+
+  return`<div class="pg">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+    <div>
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--green-dark)">Reportes energéticos</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px">${reps.length} reportes generados</div>
+    </div>
+    <button class="btn bp" onclick="genReporte()">+ Generar reporte</button>
+  </div>
+  ${gKeys.length?`<div class="card" style="margin-bottom:20px">
+    <div class="ctit">Consumo mensual histórico (kWh)</div>
+    <div style="height:190px">${barSVG([{label:"kWh",data:gVals}],gKeys,["#1a9e5c"])}</div>
+  </div>`:""}
+  ${reps.length?reps.map(r=>`
+    <div class="rc">
+      <div><div class="rp">${r.periodo}</div><div class="rd">📅 Generado el ${r.fecha}</div></div>
+      <div class="rst">
+        <div class="ri"><p>Consumo total</p><span style="color:var(--blue)">${r.kwh} <span style="font-size:11px;color:var(--muted)">kWh</span></span></div>
+        <div class="ri"><p>Eficiencia</p><span style="color:${r.ef>=80?"var(--green)":"var(--amber)"}">${r.ef}%</span>
+          <div class="eb"><div class="ef" style="width:${r.ef}%;background:${r.ef>=80?"var(--green)":"var(--amber)"}"></div></div>
+        </div>
+      </div>
+      <button class="btn bd" style="font-size:11px" onclick="delReporte(${r.id})">✕ Eliminar</button>
+    </div>`).join(""):`<div class="card empty"><div class="empty-icon">📋</div><div class="empty-txt">No hay reportes generados. Haz clic en "+ Generar reporte" para crear uno.</div></div>`}
+  </div>`;
+}
+
+function genReporte(){
+  const cons=myConsumos();
+  if(!cons.length){notify("Registra consumo primero","var(--amber)");return;}
+  const total=parseFloat(cons.reduce((s,c)=>s+c.kwh,0).toFixed(2));
+  const devs=myDevs();
+  const ef=Math.max(62,Math.min(98,Math.round(88-total/Math.max(devs.length,1)*1.5)));
+  const meses=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+  const now=new Date();
+  DB.reportes.push({id:Date.now(),userId:SESS.userId,periodo:`${meses[now.getMonth()]} ${now.getFullYear()}`,kwh:total,ef,fecha:now.toLocaleDateString("es-CO")});
+  saveDB();notify("Reporte generado ✓");renderPage();
+}
+function delReporte(id){DB.reportes=DB.reportes.filter(r=>r.id!==id);saveDB();notify("Reporte eliminado");renderPage();}
+
+// ── USUARIOS ─────────────────────────────────────────────────────────────────
+function renderUsuarios(){
+  const me=curUser();
+  const totalKwh=DB.consumos.reduce((s,c)=>s+c.kwh,0);
+  const cards=DB.usuarios.map(u=>{
+    const uD=DB.dispositivos.filter(d=>d.userId===u.id).length;
+    const uK=DB.consumos.filter(c=>c.userId===u.id).reduce((s,c)=>s+c.kwh,0);
+    return`<div class="usr-card ${u.id===me.id?"me":""}">
+      <div class="usr-av" style="background:${u.color}">${u.nombre.charAt(0).toUpperCase()}</div>
+      <div class="usr-nm">${u.nombre}${u.id===me.id?` <span style="font-size:10px;color:var(--green);background:var(--green-light);padding:1px 7px;border-radius:4px">tú</span>`:""}</div>
+      <div class="usr-em">${u.email}</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:4px">📅 Desde ${u.fecha}</div>
+      <div class="usr-stats">
+        <div class="usr-stat"><p>Dispositivos</p><span style="color:var(--blue)">${uD}</span></div>
+        <div class="usr-stat"><p>kWh totales</p><span style="color:var(--green)">${uK.toFixed(1)}</span></div>
+        <div class="usr-stat"><p>Registros</p><span style="color:var(--amber)">${DB.consumos.filter(c=>c.userId===u.id).length}</span></div>
+      </div>
+    </div>`;
+  }).join("");
+
+  return`<div class="pg">
+  <div class="mg" style="grid-template-columns:repeat(3,1fr);margin-bottom:20px">
+    <div class="mc g"><div class="mc-lbl">Usuarios registrados</div><div class="mc-val g">${DB.usuarios.length}</div><div class="mc-badge bn-b">en el sistema</div></div>
+    <div class="mc b"><div class="mc-lbl">Dispositivos totales</div><div class="mc-val b">${DB.dispositivos.length}</div><div class="mc-badge bn-b">${DB.dispositivos.filter(d=>d.activo).length} activos</div></div>
+    <div class="mc a"><div class="mc-lbl">kWh sistema total</div><div class="mc-val a">${totalKwh.toFixed(1)}<span class="mc-unit">kWh</span></div><div class="mc-badge bn-b">${DB.consumos.length} registros</div></div>
+  </div>
+  <div class="usr-grid">${cards||`<div style="color:var(--muted)">Sin usuarios registrados</div>`}</div>
+  <div class="card"><div class="ctit">Resumen por usuario</div>
+  <div style="overflow-x:auto"><table>
+    <thead><tr><th>Usuario</th><th>Correo</th><th>Dispositivos</th><th>kWh totales</th><th>Registros</th><th>Desde</th></tr></thead>
+    <tbody>${DB.usuarios.map(u=>`<tr>
+      <td><div style="display:flex;align-items:center;gap:9px">
+        <div style="width:28px;height:28px;border-radius:50%;background:${u.color};display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#fff">${u.nombre.charAt(0)}</div>
+        <strong>${u.nombre}</strong>
+      </div></td>
+      <td style="color:var(--muted)">${u.email}</td>
+      <td style="font-weight:600;color:var(--blue)">${DB.dispositivos.filter(d=>d.userId===u.id).length}</td>
+      <td style="font-weight:700;color:var(--green)">${DB.consumos.filter(c=>c.userId===u.id).reduce((s,c)=>s+c.kwh,0).toFixed(2)}</td>
+      <td style="color:var(--muted)">${DB.consumos.filter(c=>c.userId===u.id).length}</td>
+      <td style="color:var(--muted)">${u.fecha}</td>
+    </tr>`).join("")}</tbody>
+  </table></div></div>
+  </div>`;
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+loadDB();
+if(SESS.userId&&DB.usuarios.find(u=>u.id===SESS.userId)){
+  renderApp();
+}else{
+  renderAuth("login");
+}
+</script>
+</body>
+</html>
